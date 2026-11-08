@@ -26,8 +26,11 @@ example is `clients/pixelheap/`. Match its depth and tone.
 3. **Search snapshot.** Run WebSearch, in parallel, for: the person's name in quotes, name + profession,
    name + town, business + service + town, and the bare domain. Record the top 5 per query in
    `search_snapshot`, with `owned` and `about` ∈ `you | namesake | competitor | unrelated`.
-   Note in the finding that the snapshot came from one engine, and recommend a signed-out
-   Google check from the client's area.
+   **WebSearch is not Google, and it under-reports small sites.** In the Pixelheap pilot it missed a
+   site that Google ranks #1 with sitelinks. Treat a "not found" as provisional, never score
+   Discoverability below 2 on WebSearch evidence alone, and ask the user for signed-out Google
+   screenshots (phone, client's area) of the brand, name, and service + town queries. Google
+   evidence overrides WebSearch. Label each query with its source, e.g. `pixelheap  (Google, signed out, mobile)`.
 4. **Inventory.** List every profile linked from the site, every one found in search, and the
    obvious gaps (Google Business Profile, Behance/Dribbble for creatives, chamber/directories for local).
    Statuses: `active | dormant | unclaimed | impersonation | outdated | exposed | unknown`.
