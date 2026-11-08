@@ -29,7 +29,12 @@ framework/audit-checklist.md  Everything we check, pillar by pillar
 framework/scoring.md          The 0–100 Presence Score rubric
 templates/                    Intake, consent, site brief
 tools/new_client.sh           Scaffold a client folder
-tools/site_check.py           Automated check of an existing website (stdlib only)
+tools/collect.py              Runs every automated collector for a client in one command
+tools/serp.py                 Real, localized Google results (DataForSEO; needs API login)
+tools/site_check.py           Website check: HTTPS, headers, SEO/social tags, a11y signals, trackers
+tools/pagespeed.py            Lighthouse scores (PageSpeed API, or local Chromium fallback)
+tools/domain_check.py         Registrar, expiry, WHOIS privacy, MX/SPF/DMARC
+tools/handles.py              Handle availability across platforms
 tools/render_report.py        audit.json → a polished, client-ready HTML report
 clients/pixelheap/            Pilot audit (Pixelheap / Eric Millington), the reference example
 .claude/skills/               Claude workflows: /footprint-audit, /presence-site
@@ -38,9 +43,10 @@ clients/pixelheap/            Pilot audit (Pixelheap / Eric Millington), the ref
 ## Quick start
 
 ```bash
-tools/new_client.sh "Jane Doe"                         # creates clients/jane-doe/
-python3 tools/site_check.py https://janedoe.com > clients/jane-doe/site-check.json
-python3 tools/render_report.py clients/jane-doe/audit.json   # writes report.html next to it
+tools/new_client.sh "Jane Doe"                  # creates clients/jane-doe/
+# fill client.inputs in clients/jane-doe/audit.json (name, site, location, handles…)
+python3 tools/collect.py jane-doe                # gathers everything into collected/
+python3 tools/render_report.py clients/jane-doe/audit.json
 ```
 
 Or ask Claude to do it: `/footprint-audit jane-doe`.
@@ -49,3 +55,10 @@ Open `clients/pixelheap/report.html` to see a finished deliverable.
 
 > **Client data is private.** Everything under `clients/` except the pilot is
 > git-ignored on purpose. Store real client folders somewhere access-controlled.
+
+## Accounts the tools use
+
+| Service | Used for | Setup |
+|---|---|---|
+| DataForSEO | Real Google results by town and device | Account plus API login, saved as a network credential for `api.dataforseo.com` (or `DATAFORSEO_LOGIN`/`DATAFORSEO_PASSWORD` locally) |
+| Google PageSpeed API | Lighthouse + real-user Core Web Vitals | Optional `PAGESPEED_API_KEY`; without one, falls back to local Lighthouse |

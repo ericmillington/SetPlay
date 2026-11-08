@@ -4,7 +4,26 @@
     "type": "individual",
     "tagline": "Senior brand & web design, Clifton Park, NY",
     "date": "2026-11-08",
-    "prepared_by": "SetPlay (pilot audit)"
+    "prepared_by": "SetPlay (pilot audit)",
+    "inputs": {
+      "name": "Eric Millington",
+      "business": "Pixelheap",
+      "profession": "web designer",
+      "location": "Clifton Park,New York,United States",
+      "town": "Clifton Park NY",
+      "site": "https://www.pixelheap.design",
+      "owned": [
+        "pixelheap.design",
+        "linkedin.com/in/eric-millington"
+      ],
+      "handles": [
+        "pixelheap",
+        "ericmillington"
+      ],
+      "queries": [
+        "brand designer Saratoga Springs"
+      ]
+    }
   },
   "summary": "The work is the strongest thing here: 25 years of brand, web and print for organizations like GlobalFoundries, SPAC and the Freihofer's Saratoga Jazz Festival, on a well-built site with good accessibility basics. Anyone who already knows the name 'Pixelheap' finds you instantly. Google gives you the top result with six sitelinks. The gap is everyone else: people searching for your name or for a designer in Clifton Park don't land on you yet, and your site describes you three different ways. Fix the name, the story and the local signals, and the score moves quickly.",
   "pillars": [
@@ -27,7 +46,7 @@
       "name": "Ownership & Control",
       "weight": 20,
       "score": 3,
-      "notes": "You own the domain and a self-hosted site. Only one profile (LinkedIn) is linked; no Behance/Dribbble/Google Business Profile found. Registrar, 2FA and email setup still to confirm."
+      "notes": "You own the domain (eNom via DreamHost, renews Jun 2027, registrant details private) and a self-hosted site. 'ericmillington' is taken on Bluesky and Behance and 'pixelheap' on YouTube: confirm these are yours. 'pixelheap' is still free on Behance, Dribbble, Bluesky and Vimeo."
     },
     {
       "id": "privacy",
@@ -48,7 +67,7 @@
       "name": "Website Quality",
       "weight": 15,
       "score": 3,
-      "notes": "HTTPS, lang, viewport, alt text on all 18 images, one H1, social preview tags, sitemap. But no security headers, 21 scripts incl. two form plugins on the home page, and a tracker."
+      "notes": "Lighthouse mobile: SEO 92, accessibility 93, best practices 100, performance ~87. Alt text on all images, one H1, social tags, sitemap. But LCP 3.5 s, 1.4 MB page, no security headers, 21 scripts incl. two form plugins, and a tracker."
     }
   ],
   "search_snapshot": [
@@ -241,6 +260,15 @@
       "notes": "The only profile linked from the site. Not reviewed (login wall). Match headline to the canonical bio."
     },
     {
+      "platform": "YouTube @pixelheap",
+      "url": "https://www.youtube.com/@pixelheap",
+      "status": "unknown",
+      "owned": null,
+      "consistent": null,
+      "action": "monitor",
+      "notes": "Handle is taken. If it's yours (the blog has posted videos), link it from the site; if not, it's a lookalike."
+    },
+    {
       "platform": "Ye Olde Pixels (blog)",
       "url": "https://www.pixelheap.design/ye-olde-pixels/",
       "status": "dormant",
@@ -271,7 +299,7 @@
       "owned": false,
       "consistent": null,
       "action": "claim",
-      "notes": "No profile found. 'Heapix.design' on Dribbble is close to 'Pixelheap'. Reserve 'pixelheap' while you can."
+      "notes": "'pixelheap' is available on Behance, Dribbble, Bluesky and Vimeo. 'ericmillington' is taken on Behance and Bluesky (yours?). 'Heapix.design' on Dribbble is close to 'Pixelheap'."
     },
     {
       "platform": "Capital Region Chamber / BBB",
@@ -360,6 +388,20 @@
     {
       "pillar": "website",
       "severity": "medium",
+      "title": "Slow main content on phones (3.5 s) and a 1.4 MB page",
+      "detail": "Lighthouse mobile: performance 85–88, Largest Contentful Paint 3.5 s (Google's 'good' threshold is 2.5 s), total page weight 1,440 KB. Our principles target under 1 MB. The fixes are the unused form scripts plus resizing the hero and portfolio images.",
+      "evidence": "collected/pagespeed.json (local Lighthouse, mobile)"
+    },
+    {
+      "pillar": "website",
+      "severity": "low",
+      "title": "Some text fails color contrast",
+      "detail": "Lighthouse accessibility is 93. It fails on color contrast and on heading order (H2 → H4). The contrast fix matters more for a designer's own site.",
+      "evidence": "collected/pagespeed.json → accessibility_failures"
+    },
+    {
+      "pillar": "website",
+      "severity": "medium",
       "title": "Two form plugins and 21 scripts on the home page",
       "detail": "Contact Form 7 and WPForms both load, including WPForms' address field, input-mask and country list, on a page with no form. Load forms only on the quote page and remove the unused plugin.",
       "evidence": "site-check.json → script_count: 21"
@@ -391,6 +433,13 @@
       "title": "Small hygiene items",
       "detail": "Headings skip from H2 to H4. The LinkedIn link is written 'Https://'. The quote page has no meta description. An auto-titled page (/1739-2/) is still published.",
       "evidence": "site-check.json; home.html"
+    },
+    {
+      "pillar": "privacy",
+      "severity": "low",
+      "title": "Email spoofing protection is monitor-only",
+      "detail": "SPF is set up correctly (-all), but DMARC is 'p=none', which means email faked to look like it's from @pixelheap.design isn't blocked. After a few weeks of clean reports, move to p=quarantine.",
+      "evidence": "collected/domain.json"
     }
   ],
   "roadmap": {

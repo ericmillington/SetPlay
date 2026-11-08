@@ -1,0 +1,32 @@
+{
+  "url": "https://www.pixelheap.design",
+  "strategy": "mobile",
+  "source": "local-lighthouse",
+  "scores": {
+    "performance": 85,
+    "accessibility": 93,
+    "best-practices": 100,
+    "seo": 92
+  },
+  "lab": {
+    "first-contentful-paint": "2.0 s",
+    "largest-contentful-paint": "3.6 s",
+    "total-blocking-time": "200 ms",
+    "cumulative-layout-shift": "0",
+    "speed-index": "2.0 s"
+  },
+  "page_weight_kb": 1440,
+  "field_core_web_vitals": "not enough real-user data",
+  "field_overall": null,
+  "accessibility_failures": [
+    {
+      "id": "color-contrast",
+      "title": "Background and foreground colors do not have a sufficient contrast ratio."
+    },
+    {
+      "id": "heading-order",
+      "title": "Heading elements are not in a sequentially-descending order"
+    }
+  ],
+  "note": "PageSpeed API unavailable (HTTP 429); local Lighthouse lab run, no field data."
+}

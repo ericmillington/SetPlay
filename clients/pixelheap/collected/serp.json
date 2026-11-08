@@ -1,0 +1,31 @@
+{
+  "location": "Clifton Park,New York,United States",
+  "device": "mobile",
+  "queries": [
+    {
+      "query": "\"Eric Millington\"",
+      "error": "HTTP 401: You are not authorized to access this resource. See your login details here: https://app.dataforseo.com/api-access ."
+    },
+    {
+      "query": "Eric Millington web designer",
+      "error": "HTTP 401: You are not authorized to access this resource. See your login details here: https://app.dataforseo.com/api-access ."
+    },
+    {
+      "query": "Pixelheap",
+      "error": "HTTP 401: You are not authorized to access this resource. See your login details here: https://app.dataforseo.com/api-access ."
+    },
+    {
+      "query": "web designer Clifton Park NY",
+      "error": "HTTP 401: You are not authorized to access this resource. See your login details here: https://app.dataforseo.com/api-access ."
+    },
+    {
+      "query": "pixelheap.design",
+      "error": "HTTP 401: You are not authorized to access this resource. See your login details here: https://app.dataforseo.com/api-access ."
+    },
+    {
+      "query": "brand designer Saratoga Springs",
+      "error": "HTTP 401: You are not authorized to access this resource. See your login details here: https://app.dataforseo.com/api-access ."
+    }
+  ],
+  "search_snapshot": []
+}
