@@ -1,0 +1,7 @@
+# Real client data never goes in the repo. Only the pilot (our own studio) is tracked.
+clients/*
+!clients/pixelheap/
+clients/pixelheap/evidence/
+
+__pycache__/
+.DS_Store

@@ -1,0 +1,94 @@
+{
+  "url": "https://pixelheap.design",
+  "checked_at": "2026-11-08 01:09 UTC",
+  "reachable": true,
+  "final_url": "https://www.pixelheap.design/",
+  "response_ms": 588,
+  "http_redirects_to_https": null,
+  "security_headers": {
+    "strict-transport-security": false,
+    "content-security-policy": false,
+    "x-content-type-options": false,
+    "referrer-policy": false,
+    "permissions-policy": false
+  },
+  "server": "Apache",
+  "seo": {
+    "title": "Senior Designer - Pixelheap.Design - Brand & Web Design - Clifton Park, NY",
+    "title_length": 74,
+    "meta_description": "Senior brand & web design studio led by an experienced art director. Helping organizations bring clarity and impact to their digital presence",
+    "description_length": 141,
+    "canonical": "https://www.pixelheap.design/",
+    "robots_meta": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+    "h1_count": 1
+  },
+  "social_preview": {
+    "og:title": "Senior Designer - Pixelheap.Design - Brand & Web Design - Clifton Park, NY",
+    "og:description": "Senior brand & web design studio led by an experienced art director. Helping organizations bring clarity and impact to their digital presence",
+    "og:image": "https://www.pixelheap.design/wp-content/uploads/2025/06/pixelheap-site-image-scaled.webp",
+    "twitter:card": "summary_large_image"
+  },
+  "accessibility": {
+    "lang": "en-US",
+    "viewport": "width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover",
+    "images": 18,
+    "images_missing_alt": 0,
+    "unlabelled_form_fields": 0,
+    "heading_order": [
+      "h1",
+      "h2",
+      "h4",
+      "h2",
+      "h2",
+      "h2",
+      "h2",
+      "h2",
+      "h2",
+      "h2",
+      "h4",
+      "h2",
+      "h2",
+      "h2"
+    ]
+  },
+  "third_party_script_hosts": [
+    "www.googletagmanager.com"
+  ],
+  "trackers": [
+    "Google Tag Manager"
+  ],
+  "privacy_friendly_analytics": [],
+  "platform_hints": [
+    "WordPress"
+  ],
+  "generator": "image-prioritizer 1.0.0-beta4",
+  "html_kb": 124.0,
+  "script_count": 21,
+  "robots_txt": true,
+  "sitemap_xml": true,
+  "issues": [
+    {
+      "severity": "medium",
+      "title": "Missing security headers",
+      "detail": "strict-transport-security, content-security-policy, x-content-type-options, referrer-policy, permissions-policy"
+    },
+    {
+      "severity": "medium",
+      "title": "1 third-party tracker(s)",
+      "detail": "Google Tag Manager"
+    },
+    {
+      "severity": "low",
+      "title": "Title length not ideal",
+      "detail": "74 chars (aim 15–65): “Senior Designer - Pixelheap.Design - Brand & Web Design - Clifton Park, NY”"
+    },
+    {
+      "severity": "low",
+      "title": "21 external scripts",
+      "detail": "Slows load; review what's needed."
+    }
+  ],
+  "good": [
+    "Served over HTTPS"
+  ]
+}

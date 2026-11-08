@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Presence Report · Eric Millington · Pixelheap</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf7f2;--panel:#fff;--ink:#1d1b18;--muted:#6b655c;--line:#e7e1d6;--accent:#2f5d50;--accent-soft:#dcebe5;
+--crit:#a3242b;--high:#c2571a;--med:#b38a12;--low:#5b6f8a;--own:#2f5d50;--ns:#c9bfae;--other:#8a7f6e;
+--serif:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,-apple-system,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#151412;--panel:#1e1c19;--ink:#efe9df;--muted:#a59d90;--line:#34302a;
+--accent:#7fbfa9;--accent-soft:#22332d;--crit:#ef7a7f;--high:#f0a06a;--med:#e3c25a;--low:#93a8c6;--own:#7fbfa9;--ns:#4b453c;--other:#8a7f6e}}
+:root[data-theme=dark]{--bg:#151412;--panel:#1e1c19;--ink:#efe9df;--muted:#a59d90;--line:#34302a;--accent:#7fbfa9;--accent-soft:#22332d;
+--crit:#ef7a7f;--high:#f0a06a;--med:#e3c25a;--low:#93a8c6;--own:#7fbfa9;--ns:#4b453c}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+.top{position:sticky;top:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:5}
+.top-inner{display:flex;justify-content:space-between;align-items:center;height:56px;gap:16px}
+.brand{font:600 20px var(--serif);letter-spacing:-.01em}
+nav{display:flex;gap:18px;overflow-x:auto}nav a{color:var(--muted);text-decoration:none;font-size:14px;white-space:nowrap}nav a:hover{color:var(--ink)}
+h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.015em;line-height:1.15;margin:0}
+h1{font-size:clamp(40px,7vw,64px)}h2{font-size:clamp(26px,4vw,34px);margin-bottom:24px}h3{font-size:19px}
+.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:600;color:var(--accent);margin:0 0 10px}
+.muted{color:var(--muted)}.small{font-size:13px}.center{text-align:center}
+section{padding:56px 0;border-bottom:1px solid var(--line)}
+.hero{display:grid;grid-template-columns:1fr 220px;gap:40px;align-items:center;padding-top:64px}
+.tagline{color:var(--muted);font-size:18px;margin:8px 0 0}
+.label{font:600 28px var(--serif);color:var(--accent);margin:28px 0 0}.lede{font-size:18px;margin:4px 0 0}
+.summary{max-width:60ch;margin-top:20px;color:var(--muted)}
+.ring{width:100%;max-width:220px}.ring-track{fill:none;stroke:var(--line);stroke-width:14}
+.ring-fill{fill:none;stroke:var(--accent);stroke-width:14;stroke-linecap:round}
+.ring-num{font:600 52px var(--serif);fill:var(--ink);text-anchor:middle}.ring-of{font:500 13px var(--sans);fill:var(--muted);text-anchor:middle}
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}
+.pillar{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+.pillar-head{display:flex;justify-content:space-between;align-items:baseline;font-weight:600}
+.pillar-score{font:600 24px var(--serif)}.pillar-score small{font-size:13px;color:var(--muted)}
+.pillar p{margin:12px 0 0;font-size:14px}
+.bar{height:8px;background:var(--line);border-radius:99px;margin-top:10px;overflow:hidden}
+.bar span{display:block;height:100%;border-radius:99px;background:var(--accent)}
+.bar .lvl-0,.bar .lvl-1{background:var(--crit)}.bar .lvl-2{background:var(--high)}.bar .lvl-3{background:var(--med)}
+.query{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px}
+.query-head{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin-bottom:12px}
+.query-head code{font-size:15px;background:var(--accent-soft);padding:4px 10px;border-radius:8px}
+.dots{display:flex;gap:5px}.dot{width:14px;height:14px;border-radius:4px;background:var(--other);opacity:.5}
+.dot.own{background:var(--own);opacity:1}.dot.you{background:var(--med);opacity:1}.dot.ns{background:var(--ns);opacity:1}
+.results{list-style:none;padding:0;margin:0}
+.results li{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:start;padding:10px 0;border-top:1px solid var(--line)}
+.rank{font:600 15px var(--serif);color:var(--muted)}
+.url{display:block;font-size:13px;color:var(--muted);word-break:break-all}
+.tag{font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;white-space:nowrap}
+.t-own{background:var(--accent-soft);color:var(--accent)}.t-you{background:color-mix(in srgb,var(--med) 18%,transparent);color:var(--med)}.t-ns{background:var(--line);color:var(--muted)}.t-other{border:1px solid var(--line);color:var(--muted)}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:680px}
+th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:12px 16px;border-bottom:1px solid var(--line)}
+td{padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}tr:last-child td{border-bottom:0}
+.chip{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;background:var(--line);white-space:nowrap}
+.s-active{background:var(--accent-soft);color:var(--accent)}.s-impersonation,.s-exposed{background:color-mix(in srgb,var(--crit) 15%,transparent);color:var(--crit)}
+.s-dormant,.s-outdated{background:color-mix(in srgb,var(--med) 18%,transparent);color:var(--med)}
+.a-keep{background:transparent;border:1px solid var(--line)}.a-delete,.a-report,.a-opt-out{color:var(--crit)}.a-claim,.a-update{color:var(--accent)}
+.findings{display:grid;gap:14px}
+.finding{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--low);border-radius:12px;padding:18px 20px}
+.finding p{margin:8px 0 0}.finding-meta{display:flex;gap:12px;font-size:13px;margin-bottom:6px}
+.sev{font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:11px}
+.sev-critical{border-left-color:var(--crit)}.sev-critical .sev{color:var(--crit)}
+.sev-high{border-left-color:var(--high)}.sev-high .sev{color:var(--high)}
+.sev-medium{border-left-color:var(--med)}.sev-medium .sev{color:var(--med)}.sev-low .sev{color:var(--low)}
+.evidence{font-size:13px;color:var(--muted);word-break:break-all}
+.roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.rm-col{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+.rm-col h3{font-size:24px}.rm-col>p{margin:4px 0 12px;font-size:14px}
+.rm-col ol{list-style:none;padding:0;margin:0;counter-reset:r}
+.rm-col li{padding:14px 0;border-top:1px solid var(--line)}.rm-col li p{margin:6px 0;font-size:14px;color:var(--muted)}
+.rm-top{display:flex;justify-content:space-between;gap:10px}
+.effort{font:600 12px var(--sans);border:1px solid var(--line);border-radius:6px;padding:1px 7px;height:fit-content}
+.owner{font-size:12px;font-weight:600;color:var(--accent)}
+footer{padding:40px 16px 64px;font-size:13px;color:var(--muted)}
+@media (max-width:760px){.hero{grid-template-columns:1fr}.ring{max-width:170px}.roadmap{grid-template-columns:1fr}}
+@media print{.top{display:none}section{break-inside:avoid-page;padding:32px 0}body{background:#fff}
+.pillar,.query,.finding,.rm-col{break-inside:avoid}}
+</style></head>
+<body>
+<header class="top"><div class="wrap top-inner"><span class="brand">SetPlay</span><nav><a href="#score">Score</a><a href="#search">Search</a><a href="#inventory">Inventory</a><a href="#findings">Findings</a><a href="#roadmap">Roadmap</a></nav></div></header>
+<main class="wrap">
+<section class="hero" id="score">
+  <div><p class="eyebrow">Presence Report · 2026-11-08</p>
+  <h1>Eric Millington · Pixelheap</h1>
+  <p class="tagline">Senior brand &amp; web design, Clifton Park, NY</p>
+  <p class="label">Scattered</p><p class="lede">Right now the internet is telling your story for you.</p>
+  <p class="summary">The work is the strongest thing here: 25 years of brand, web and print for organizations like GlobalFoundries, SPAC and the Freihofer&#x27;s Saratoga Jazz Festival, on a fast, well-built site with good accessibility basics. The problem is that almost nobody can find it. In our search snapshot, neither your name nor your studio surfaced, and your site describes you three different ways. Fix the name, the story and the signals, and the score moves quickly.</p></div>
+  <svg class="ring" viewBox="0 0 180 180" role="img" aria-label="Presence Score 49 out of 100">
+  <circle cx="90" cy="90" r="70" class="ring-track"/>
+  <circle cx="90" cy="90" r="70" class="ring-fill" stroke-dasharray="439.8" stroke-dashoffset="224.3" transform="rotate(-90 90 90)"/>
+  <text x="90" y="88" class="ring-num">49</text><text x="90" y="114" class="ring-of">of 100</text></svg>
+</section>
+<section ><p class="eyebrow">Breakdown</p><h2>Six pillars of a responsible presence</h2><div class="pillars"><div class="pillar"><div class="pillar-head"><span>Discoverability</span>
+          <span class="pillar-score">1<small>/5</small></span></div>
+          <div class="bar"><span style="width:20%" class="lvl-1"></span></div>
+          <p class="muted">None of 5 searches surfaced pixelheap.design or you. Namesakes (Ernest, Errol, Elliot Millington) own your name. Your name isn&#x27;t in the home page title.</p></div><div class="pillar"><div class="pillar-head"><span>Consistency</span>
+          <span class="pillar-score">2<small>/5</small></span></div>
+          <div class="bar"><span style="width:40%" class="lvl-2"></span></div>
+          <p class="muted">Three different positioning statements on one site (art director / studio / front-end developer), 20+ vs 25+ years, I vs we.</p></div><div class="pillar"><div class="pillar-head"><span>Ownership &amp; Control</span>
+          <span class="pillar-score">3<small>/5</small></span></div>
+          <div class="bar"><span style="width:60%" class="lvl-3"></span></div>
+          <p class="muted">You own the domain and a self-hosted site. Only one profile (LinkedIn) is linked; no Behance/Dribbble/Google Business Profile found. Registrar, 2FA and email setup still to confirm.</p></div><div class="pillar"><div class="pillar-head"><span>Privacy &amp; Safety</span>
+          <span class="pillar-score">3<small>/5</small></span></div>
+          <div class="bar"><span style="width:60%" class="lvl-3"></span></div>
+          <p class="muted">No home address found. Personal cell published on every page, quote form requires a phone number, Google tag loads with no consent notice. Data broker sweep and breach check not yet run.</p></div><div class="pillar"><div class="pillar-head"><span>Reputation &amp; Content</span>
+          <span class="pillar-score">3<small>/5</small></span></div>
+          <div class="bar"><span style="width:60%" class="lvl-3"></span></div>
+          <p class="muted">Excellent, recognizable client list and a personable blog. No testimonials or reviews visible; blog quiet since Nov 2025.</p></div><div class="pillar"><div class="pillar-head"><span>Website Quality</span>
+          <span class="pillar-score">3<small>/5</small></span></div>
+          <div class="bar"><span style="width:60%" class="lvl-3"></span></div>
+          <p class="muted">HTTPS, lang, viewport, alt text on all 18 images, one H1, social preview tags, sitemap. But no security headers, 21 scripts incl. two form plugins on the home page, and a tracker.</p></div></div></section>
+<section id='search'><p class="eyebrow">Search snapshot</p><h2>What people see when they search for you</h2><div class="query"><div class="query-head"><code>&quot;Eric Millington&quot;</code>
+              <span class="dots"><span class="dot ns" title="#1: Errol Millington (Wikipedia mirror)"></span><span class="dot ns" title="#2: Errol Millington"></span><span class="dot ns" title="#3: Ernest Millington – Wikipedia"></span><span class="dot ns" title="#4: Elliot Millington – Wikipedia"></span><span class="dot ns" title="#5: Ernest Millington"></span></span><span class="muted">You control 0 of 5</span></div>
+              <ol class="results"><li><span class="rank">1</span><div><strong>Errol Millington (Wikipedia mirror)</strong>
+                <span class="url">ipfs.ssi.eecc.de/…/Errol_Millington</span></div>
+                <span class="tag t-ns">Namesake</span></li><li><span class="rank">2</span><div><strong>Errol Millington</strong>
+                <span class="url">cavac.at/cavacopedia/Errol Millington</span></div>
+                <span class="tag t-ns">Namesake</span></li><li><span class="rank">3</span><div><strong>Ernest Millington – Wikipedia</strong>
+                <span class="url">en.wikipedia.org/wiki/Ernest_Millington</span></div>
+                <span class="tag t-ns">Namesake</span></li><li><span class="rank">4</span><div><strong>Elliot Millington – Wikipedia</strong>
+                <span class="url">en.wikipedia.org/wiki/Elliot_Millington</span></div>
+                <span class="tag t-ns">Namesake</span></li><li><span class="rank">5</span><div><strong>Ernest Millington</strong>
+                <span class="url">wikipedia.com/wiki/Ernest_Millington</span></div>
+                <span class="tag t-ns">Namesake</span></li></ol></div><div class="query"><div class="query-head"><code>&quot;Eric Millington&quot; designer</code>
+              <span class="dots"><span class="dot other" title="#1: Millington – Tina Ramchandani Creative"></span><span class="dot ns" title="#2: H.C. Millington – Design and Art Australia Online"></span><span class="dot ns" title="#3: The Neighbourhood hires former AllofUs senior designer (Rob Millington)"></span><span class="dot other" title="#4: Behance – electronymous"></span><span class="dot other" title="#5: Behance – ericmillerdesign"></span></span><span class="muted">You control 0 of 5</span></div>
+              <ol class="results"><li><span class="rank">1</span><div><strong>Millington – Tina Ramchandani Creative</strong>
+                <span class="url">incollect.com/projects/design/…/millington</span></div>
+                <span class="tag t-other">Unrelated</span></li><li><span class="rank">2</span><div><strong>H.C. Millington – Design and Art Australia Online</strong>
+                <span class="url">daao.library.unsw.edu.au/bio/hc-millington</span></div>
+                <span class="tag t-ns">Namesake</span></li><li><span class="rank">3</span><div><strong>The Neighbourhood hires former AllofUs senior designer (Rob Millington)</strong>
+                <span class="url">thedrum.com/news/2011/08/25/…</span></div>
+                <span class="tag t-ns">Namesake</span></li><li><span class="rank">4</span><div><strong>Behance – electronymous</strong>
+                <span class="url">behance.net/electronymous</span></div>
+                <span class="tag t-other">Unrelated</span></li><li><span class="rank">5</span><div><strong>Behance – ericmillerdesign</strong>
+                <span class="url">behance.net/ericmillerdesign</span></div>
+                <span class="tag t-other">Unrelated</span></li></ol></div><div class="query"><div class="query-head"><code>Pixelheap web design Clifton Park NY</code>
+              <span class="dots"><span class="dot other" title="#1: 3tone Digital – Clifton Park Web Design &amp; Development"></span><span class="dot other" title="#2: BBB – Web design, Rexford NY"></span><span class="dot other" title="#3: BBB – Web design, Clifton Park NY"></span><span class="dot other" title="#4: Clever Coding – Clifton Park web app development"></span><span class="dot other" title="#5: pixelMIGHT – Website Design &amp; Development"></span></span><span class="muted">You control 0 of 5</span></div>
+              <ol class="results"><li><span class="rank">1</span><div><strong>3tone Digital – Clifton Park Web Design &amp; Development</strong>
+                <span class="url">members.capitalregionchamber.com/…/3tone-digital</span></div>
+                <span class="tag t-other">Unrelated</span></li><li><span class="rank">2</span><div><strong>BBB – Web design, Rexford NY</strong>
+                <span class="url">bbb.org/us/ny/rexford/category/web-design</span></div>
+                <span class="tag t-other">Unrelated</span></li><li><span class="rank">3</span><div><strong>BBB – Web design, Clifton Park NY</strong>
+                <span class="url">bbb.org/us/ny/clifton-park/category/web-design</span></div>
+                <span class="tag t-other">Unrelated</span></li><li><span class="rank">4</span><div><strong>Clever Coding – Clifton Park web app development</strong>
+                <span class="url">clevercoding.com/services/City/Clifton-Park_New-York/…</span></div>
+                <span class="tag t-other">Unrelated</span></li><li><span class="rank">5</span><div><strong>pixelMIGHT – Website Design &amp; Development</strong>
+                <span class="url">pixelmight.com/website-design</span></div>
+                <span class="tag t-other">Unrelated</span></li></ol></div><div class="query"><div class="query-head"><code>pixelheap.design</code>
+              <span class="dots"><span class="dot other" title="#1: Heapix.design – Dribbble"></span><span class="dot other" title="#2: Pixelmay – Ghost"></span><span class="dot other" title="#3: Pixelhunt – Dribbble"></span><span class="dot other" title="#4: Pixency – Dribbble"></span><span class="dot other" title="#5: Built by Pixel – Dribbble"></span></span><span class="muted">You control 0 of 5</span></div>
+              <ol class="results"><li><span class="rank">1</span><div><strong>Heapix.design – Dribbble</strong>
+                <span class="url">dribbble.com/heapix-design</span></div>
+                <span class="tag t-other">Unrelated</span></li><li><span class="rank">2</span><div><strong>Pixelmay – Ghost</strong>
+                <span class="url">explore.ghost.org/p/pixelmay</span></div>
+                <span class="tag t-other">Unrelated</span></li><li><span class="rank">3</span><div><strong>Pixelhunt – Dribbble</strong>
+                <span class="url">dribbble.com/pixelhunt</span></div>
+                <span class="tag t-other">Unrelated</span></li><li><span class="rank">4</span><div><strong>Pixency – Dribbble</strong>
+                <span class="url">dribbble.com/pixency</span></div>
+                <span class="tag t-other">Unrelated</span></li><li><span class="rank">5</span><div><strong>Built by Pixel – Dribbble</strong>
+                <span class="url">dribbble.com/builtbypixel</span></div>
+                <span class="tag t-other">Unrelated</span></li></ol></div></section><section id='inventory'><p class="eyebrow">Inventory: 10 items</p><h2>Your footprint, account by account</h2><p class="lede">5 to update · 3 to claim · 1 to archive · 1 to monitor</p><div class="table-wrap"><table><thead><tr><th>Where</th><th>Status</th><th>On-brand</th><th>Action</th><th>Notes</th></tr></thead><tbody><tr><td><strong>pixelheap.design</strong><span class="url">https://www.pixelheap.design</span></td>
+            <td><span class="chip s-active">Active</span></td>
+            <td class="center">✗</td>
+            <td><span class="chip a-update">Update</span></td>
+            <td class="muted">WordPress 7.1 + Blocksy theme. Strong portfolio; positioning differs page to page.</td></tr><tr><td><strong>LinkedIn</strong><span class="url">linkedin.com/in/eric-millington</span></td>
+            <td><span class="chip s-active">Active</span></td>
+            <td class="center">–</td>
+            <td><span class="chip a-update">Update</span></td>
+            <td class="muted">The only profile linked from the site. Not reviewed (login wall). Match headline to the canonical bio.</td></tr><tr><td><strong>Ye Olde Pixels (blog)</strong><span class="url">https://www.pixelheap.design/ye-olde-pixels/</span></td>
+            <td><span class="chip s-dormant">Dormant</span></td>
+            <td class="center">✓</td>
+            <td><span class="chip a-update">Update</span></td>
+            <td class="muted">21 posts, 2023–2025. Last post Nov 23, 2025. Good voice; a few posts on topic would help search.</td></tr><tr><td><strong>Phone (518.229.3364)</strong><span class="url"></span></td>
+            <td><span class="chip s-exposed">Exposed</span></td>
+            <td class="center">✓</td>
+            <td><span class="chip a-update">Update</span></td>
+            <td class="muted">Shown in the body and footer of every page as &#x27;call or text&#x27;. If it&#x27;s your personal cell, swap in a business number.</td></tr><tr><td><strong>Google Business Profile</strong><span class="url"></span></td>
+            <td><span class="chip s-unclaimed">Unclaimed</span></td>
+            <td class="center">–</td>
+            <td><span class="chip a-claim">Claim</span></td>
+            <td class="muted">Not seen in local results for &#x27;web design Clifton Park NY&#x27;. Competitors are.</td></tr><tr><td><strong>Behance / Dribbble</strong><span class="url"></span></td>
+            <td><span class="chip s-unclaimed">Unclaimed</span></td>
+            <td class="center">–</td>
+            <td><span class="chip a-claim">Claim</span></td>
+            <td class="muted">No profile found. &#x27;Heapix.design&#x27; on Dribbble is close to &#x27;Pixelheap&#x27;. Reserve &#x27;pixelheap&#x27; while you can.</td></tr><tr><td><strong>Capital Region Chamber / BBB</strong><span class="url"></span></td>
+            <td><span class="chip s-unclaimed">Unclaimed</span></td>
+            <td class="center">–</td>
+            <td><span class="chip a-claim">Claim</span></td>
+            <td class="muted">Local competitors rank through these directories.</td></tr><tr><td><strong>Google tag (GT-PJ43BXS via Site Kit)</strong><span class="url"></span></td>
+            <td><span class="chip s-active">Active</span></td>
+            <td class="center">–</td>
+            <td><span class="chip a-update">Update</span></td>
+            <td class="muted">Loads on every page with no consent notice. Swap for cookieless analytics.</td></tr><tr><td><strong>Untitled page /1739-2/</strong><span class="url">https://www.pixelheap.design/1739-2/</span></td>
+            <td><span class="chip s-outdated">Outdated</span></td>
+            <td class="center">–</td>
+            <td><span class="chip a-archive">Archive</span></td>
+            <td class="muted">Leftover auto-titled page, still linked through its RSS feed.</td></tr><tr><td><strong>Other socials (Instagram, Threads, Bluesky, YouTube…)</strong><span class="url"></span></td>
+            <td><span class="chip s-unknown">Unknown</span></td>
+            <td class="center">–</td>
+            <td><span class="chip a-monitor">Monitor</span></td>
+            <td class="muted">None linked. Tell us what exists, including old accounts, so we can decide what to keep.</td></tr></tbody></table></div></section><section id='findings'><p class="eyebrow">Findings: 3 high · 7 medium · 2 low</p><h2>What we found</h2><div class="findings"><article class="finding sev-high"><div class="finding-meta">
+            <span class="sev">High</span><span class="muted">Discoverability</span></div>
+            <h3>Searchers can&#x27;t find you by name or by studio</h3><p>Across 5 searches (your name, name + designer, name + town, &#x27;Pixelheap&#x27; + service + town, and the domain itself), none returned your site or a profile of yours. Results were namesakes, unrelated &#x27;pixel&#x27; studios and local competitors. Note: this snapshot used one search engine; we&#x27;ll confirm in signed-out Google from your area.</p>
+            <p class="evidence">Evidence: Search snapshot, 2026-11-08</p></article><article class="finding sev-high"><div class="finding-meta">
+            <span class="sev">High</span><span class="muted">Discoverability</span></div>
+            <h3>Your name isn&#x27;t in the home page title</h3><p>The title reads &#x27;Senior Designer - Pixelheap.Design - Brand &amp; Web Design - Clifton Park, NY&#x27; (74 characters, so it gets truncated). The H1 is &#x27;Eric Millington&#x27;, but the title is what search engines weigh. Suggested title: &#x27;Eric Millington · Brand &amp; Web Designer, Clifton Park NY | Pixelheap&#x27;.</p>
+            <p class="evidence">Evidence: site-check.json → seo.title</p></article><article class="finding sev-high"><div class="finding-meta">
+            <span class="sev">High</span><span class="muted">Consistency</span></div>
+            <h3>Three different stories about who you are</h3><p>The home page says &#x27;a design studio led by a senior art director&#x27;. The portfolio says &#x27;I&#x27;m a front-end developer with a background in print design&#x27;. The quote page mixes &#x27;I&#x27; and &#x27;us&#x27;. A prospect reading two pages gets two people. Pick one positioning and one voice, then write a canonical bio (short/medium/long) and reuse it everywhere.</p>
+            <p class="evidence">Evidence: /, /millington-design-portfolio/, /get-a-free-quote/</p></article><article class="finding sev-medium"><div class="finding-meta">
+            <span class="sev">Medium</span><span class="muted">Consistency</span></div>
+            <h3>&#x27;20+ years&#x27; and &#x27;25+ years&#x27; on the same page</h3><p>The hero says 20+ years and the About section says 25+. Both are true-ish; only one should appear.</p>
+            <p class="evidence">Evidence: Home page hero vs. &#x27;About Eric Millington&#x27;</p></article><article class="finding sev-medium"><div class="finding-meta">
+            <span class="sev">Medium</span><span class="muted">Privacy &amp; Safety</span></div>
+            <h3>Phone number on every page; the quote form requires one</h3><p>&#x27;Call or text: 518.229.3364&#x27; appears in the content and footer site-wide, so scrapers will harvest it. If it&#x27;s your personal cell, use a business line (Google Voice, OpenPhone). The quote form also makes phone number required; making it optional reduces friction and collects less data.</p>
+            <p class="evidence">Evidence: Home footer; /get-a-free-quote/ form</p></article><article class="finding sev-medium"><div class="finding-meta">
+            <span class="sev">Medium</span><span class="muted">Privacy &amp; Safety</span></div>
+            <h3>Google tag loads with no consent notice</h3><p>Site Kit injects Google&#x27;s gtag (GT-PJ43BXS) on every page. For a US studio this is common, but it conflicts with the privacy-first story you&#x27;ll be selling. Use cookieless analytics (Plausible or Fathom), or add a proper consent banner.</p>
+            <p class="evidence">Evidence: googletagmanager.com/gtag/js?id=GT-PJ43BXS</p></article><article class="finding sev-medium"><div class="finding-meta">
+            <span class="sev">Medium</span><span class="muted">Ownership &amp; Control</span></div>
+            <h3>Unclaimed profiles where clients look</h3><p>No Google Business Profile, Behance, Dribbble or chamber listing was found. Local competitors (3tone Digital, Clever Coding) rank through exactly these. &#x27;Heapix.design&#x27; already exists on Dribbble, so reserve &#x27;pixelheap&#x27; on major platforms now.</p>
+            <p class="evidence">Evidence: Search snapshot</p></article><article class="finding sev-medium"><div class="finding-meta">
+            <span class="sev">Medium</span><span class="muted">Website Quality</span></div>
+            <h3>Two form plugins and 21 scripts on the home page</h3><p>Contact Form 7 and WPForms both load, including WPForms&#x27; address field, input-mask and country list, on a page with no form. Load forms only on the quote page and remove the unused plugin.</p>
+            <p class="evidence">Evidence: site-check.json → script_count: 21</p></article><article class="finding sev-medium"><div class="finding-meta">
+            <span class="sev">Medium</span><span class="muted">Website Quality</span></div>
+            <h3>No security headers</h3><p>HSTS, Content-Security-Policy, X-Content-Type-Options, Referrer-Policy and Permissions-Policy are all missing. That&#x27;s a few lines in .htaccess on Apache.</p>
+            <p class="evidence">Evidence: site-check.json → security_headers</p></article><article class="finding sev-medium"><div class="finding-meta">
+            <span class="sev">Medium</span><span class="muted">Reputation &amp; Content</span></div>
+            <h3>Great client list, no social proof</h3><p>GlobalFoundries, SPAC and the Freihofer&#x27;s Jazz Festival are a strong list, but there are no testimonials, no reviews and no results (&#x27;traffic up X%&#x27;). Ask 3 past clients for two sentences each.</p>
+            <p class="evidence">Evidence: Home &amp; portfolio pages</p></article><article class="finding sev-low"><div class="finding-meta">
+            <span class="sev">Low</span><span class="muted">Reputation &amp; Content</span></div>
+            <h3>Blog quiet for nearly a year</h3><p>The last post was Nov 23, 2025. The voice is great (&#x27;Build your website for a doom-scrolling goldfish&#x27;). Even one post a month on topics clients search for would help discoverability.</p>
+            <p class="evidence">Evidence: /ye-olde-pixels/</p></article><article class="finding sev-low"><div class="finding-meta">
+            <span class="sev">Low</span><span class="muted">Website Quality</span></div>
+            <h3>Small hygiene items</h3><p>Headings skip from H2 to H4. The LinkedIn link is written &#x27;Https://&#x27;. The quote page has no meta description. An auto-titled page (/1739-2/) is still published.</p>
+            <p class="evidence">Evidence: site-check.json; home.html</p></article></div></section><section id='roadmap'><p class="eyebrow">The plan</p><h2>Your roadmap</h2><div class="roadmap"><div class="rm-col"><h3>Now</h3><p class="muted">This week: the urgent and the easy</p><ol><li><div class="rm-top"><strong>Fix the home page title</strong><span class="effort" title="Effort">S</span></div>
+            <p>Use &#x27;Eric Millington · Brand &amp; Web Designer, Clifton Park NY | Pixelheap&#x27; and add meta descriptions to the quote and blog pages.</p><span class="owner">We handle it</span></li><li><div class="rm-top"><strong>Reserve &#x27;pixelheap&#x27; everywhere</strong><span class="effort" title="Effort">S</span></div>
+            <p>Behance, Dribbble, Instagram, Bluesky, Threads, YouTube. Even if you don&#x27;t post yet.</p><span class="owner">Together</span></li><li><div class="rm-top"><strong>Claim Google Business Profile</strong><span class="effort" title="Effort">S</span></div>
+            <p>As a service-area business, so your address stays hidden. Category: Graphic designer / Website designer.</p><span class="owner">You</span></li><li><div class="rm-top"><strong>Decide on the phone number</strong><span class="effort" title="Effort">S</span></div>
+            <p>Get a business line if it&#x27;s your personal cell, and make phone optional on the quote form.</p><span class="owner">You</span></li></ol></div><div class="rm-col"><h3>Next</h3><p class="muted">This month: the foundations</p><ol><li><div class="rm-top"><strong>One positioning, one voice</strong><span class="effort" title="Effort">M</span></div>
+            <p>Write the canonical bio (short/medium/long) and apply it to every page, LinkedIn and every new profile.</p><span class="owner">Together</span></li><li><div class="rm-top"><strong>Add three testimonials</strong><span class="effort" title="Effort">M</span></div>
+            <p>Ask past clients (SPAC, Troy Cabinet, Saratoga Wine &amp; Food). Put them on home and portfolio.</p><span class="owner">You</span></li><li><div class="rm-top"><strong>Lighten and harden the site</strong><span class="effort" title="Effort">M</span></div>
+            <p>Remove the unused form plugin, load forms only on the quote page, add security headers, switch to cookieless analytics.</p><span class="owner">We handle it</span></li><li><div class="rm-top"><strong>Privacy sweep</strong><span class="effort" title="Effort">M</span></div>
+            <p>Check data brokers for your name and home address, run a breach check on your business emails, enable 2FA on the registrar and WordPress admin.</p><span class="owner">Together</span></li></ol></div><div class="rm-col"><h3>Later</h3><p class="muted">This quarter: growth</p><ol><li><div class="rm-top"><strong>Publish a monthly post</strong><span class="effort" title="Effort">L</span></div>
+            <p>Pick topics clients search for, e.g. &#x27;What a website redesign costs in the Capital Region&#x27; or &#x27;Signs your site needs a design rescue&#x27;.</p><span class="owner">You</span></li><li><div class="rm-top"><strong>Local directory listings</strong><span class="effort" title="Effort">M</span></div>
+            <p>Capital Region Chamber, Clutch, BBB, with consistent name, URL and bio.</p><span class="owner">We handle it</span></li><li><div class="rm-top"><strong>Re-audit in 90 days</strong><span class="effort" title="Effort">S</span></div>
+            <p>Target: Presence Score 75+, owning the top 3 results for your name.</p><span class="owner">We handle it</span></li></ol></div></div><p class="muted small">Effort: S = under an hour · M = a few hours · L = a project</p></section>
+</main>
+<footer class="wrap"><p>Prepared by SetPlay (pilot audit) for Eric Millington · Pixelheap on 2026-11-08. Based on publicly available information at that date; search results vary by location and over time. Confidential.</p></footer>
+</body></html>
